@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+:root {
+  --pink-color: rgb(255, 65, 106);
+  --light-grey-color: rgb(240, 240, 240);
+  --white-color: rgb(255, 255, 255);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,4 +13,59 @@
 }
 
 body {
+  font-family: "Poppins", sans-serif;
+}
+
+header {
+  background-color: var(--pink-color);
+  padding: 0.7rem 2rem;
+  display: flex;
+  align-items: center;
+  color: rgb(255, 255, 255);
+}
+
+h1 {
+  margin-right: auto;
+}
+
+.login {
+  cursor: pointer;
+}
+
+header svg {
+  height: 3rem;
+  margin-left: 1rem;
+}
+
+.main-container {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+}
+
+aside {
+  min-height: calc(100vh - 4.4rem);
+  background-color: var(--light-grey-color);
+  padding: 2rem;
+}
+
+.aside-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--pink-color);
+  margin-bottom: 0.5rem;
+}
+
+.tasks-nav {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.nav-button {
+  border: none;
+  font-family: "Poppins", sans-serif;
+  text-align: left;
+  margin-left: 1rem;
+  padding: 0.2rem;
+  font-size: 1rem;
 }
