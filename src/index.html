@@ -17,17 +17,48 @@
           />
         </svg>
       </header>
-      <div class="main-container">
+      <div class="body-container">
         <aside>
           <p class="aside-title">Your tasks</p>
           <div class="tasks-nav">
-            <button class="nav-button">Inbox</button>
-            <button class="nav-button">Today</button>
-            <button class="nav-button">This week</button>
+            <div class="nav-item">
+              <div class="nav-selected"></div>
+              <button class="nav-button">
+                <img src="./assets/inbox.svg" alt="" />
+                Inbox
+              </button>
+              <div class="amount">99</div>
+            </div>
+
+            <div class="nav-item">
+              <button class="nav-button">
+                <img src="./assets/today.svg" alt="" />
+                Today
+              </button>
+            </div>
+
+            <div class="nav-item">
+              <button class="nav-button">
+                <img src="./assets/week.svg" alt="" />
+                This week
+              </button>
+            </div>
           </div>
           <p class="aside-title">Your project</p>
+          <div class="tasks-nav"></div>
         </aside>
-        <main></main>
+        <main>
+          <button class="add-task">Add task +</button>
+          <dialog open>
+            <p
+              id="task-name"
+              class="textarea"
+              role="textbox"
+              contenteditable
+            ></p>
+            <input type="date" name="" id="" />
+          </dialog>
+        </main>
       </div>
     </div>
   </body>

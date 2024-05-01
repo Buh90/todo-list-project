@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 :root {
-  --pink-color: rgb(255, 65, 106);
-  --light-grey-color: rgb(240, 240, 240);
-  --white-color: rgb(255, 255, 255);
+  --pink: rgb(255, 65, 106);
+  --light-grey: rgb(240, 240, 240);
+  --white: rgb(255, 255, 255);
 }
 
 * {
@@ -17,7 +17,7 @@ body {
 }
 
 header {
-  background-color: var(--pink-color);
+  background-color: var(--pink);
   padding: 0.7rem 2rem;
   display: flex;
   align-items: center;
@@ -37,21 +37,25 @@ header svg {
   margin-left: 1rem;
 }
 
-.main-container {
+.body-container {
   display: grid;
   grid-template-columns: 15rem 1fr;
 }
 
+/* -----------------
+ASIDE
+-------------------*/
+
 aside {
   min-height: calc(100vh - 4.4rem);
-  background-color: var(--light-grey-color);
+  background-color: var(--light-grey);
   padding: 2rem;
 }
 
 .aside-title {
   font-weight: 700;
   font-size: 1.2rem;
-  color: var(--pink-color);
+  color: var(--pink);
   margin-bottom: 0.5rem;
 }
 
@@ -61,11 +65,125 @@ aside {
   margin-bottom: 2rem;
 }
 
-.nav-button {
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-item .nav-selected {
+  position: absolute;
+  left: 0;
+  height: 2rem;
+  width: 0.4rem;
+  background: var(--pink);
+}
+
+.nav-button > img {
+  width: 1.8rem;
+  height: 2.5rem;
+  margin-right: 0.5rem;
+}
+
+.nav-button,
+.add-task {
   border: none;
   font-family: "Poppins", sans-serif;
-  text-align: left;
-  margin-left: 1rem;
-  padding: 0.2rem;
   font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-button {
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.nav-button:hover {
+  transform: translateX(5px);
+}
+
+.amount {
+  background-color: var(--pink);
+  font-size: 0.8rem;
+  color: white;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  user-select: none;
+}
+
+/* -----------------
+MAIN
+-------------------*/
+main {
+  padding: 2rem max(2rem, 5vw);
+}
+
+.add-task {
+  color: var(--white);
+  background-color: var(--pink);
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-weight: 700;
+  outline: solid 2px var(--pink);
+  outline-offset: -2px;
+}
+
+.add-task:hover {
+  background-color: var(--white);
+  color: var(--pink);
+}
+
+/* -----------------
+DIALOG
+-------------------*/
+
+dialog {
+  width: 20rem;
+  height: auto;
+  padding: 1.5rem;
+  position: fixed;
+  top: 10rem;
+  margin: 0 auto;
+  border-radius: 5px;
+  border: 0.2rem solid var(--white);
+  background-color: var(--pink);
+}
+
+dialog::backdrop {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  resize: none;
+  line-height: 20px;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.textarea:focus-visible {
+  outline: none;
+}
+
+.textarea:empty::before {
+  content: "Type your task here";
+  color: #bbb;
+  font-weight: 400;
+}
+
+input[type="date"] {
+  background-color: var(--light-grey);
+  border: none;
+  height: 1.5rem;
+  padding: 0.7rem;
+  border-radius: 5px;
 }
