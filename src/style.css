@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   --pink: rgb(255, 65, 106);
@@ -13,7 +13,7 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 header {
@@ -86,9 +86,10 @@ aside {
 }
 
 .nav-button,
-.add-task {
+.add-task,
+.submit-btn {
   border: none;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
@@ -123,18 +124,23 @@ main {
   padding: 2rem max(2rem, 5vw);
 }
 
+.submit-btn,
 .add-task {
   color: var(--white);
   background-color: var(--pink);
   width: 100%;
-  padding: 0.5rem;
   border-radius: 5px;
-  font-weight: 700;
   outline: solid 2px var(--pink);
   outline-offset: -2px;
 }
 
-.add-task:hover {
+.add-task {
+  font-weight: 700;
+  padding: 0.5rem;
+}
+
+.add-task:hover,
+.submit-btn:hover {
   background-color: var(--white);
   color: var(--pink);
 }
@@ -144,15 +150,14 @@ DIALOG
 -------------------*/
 
 dialog {
-  width: 20rem;
-  height: auto;
-  padding: 1.5rem;
+  width: 22rem;
+  padding: 1.5rem 1.5rem 0.8rem;
   position: fixed;
   top: 10rem;
   margin: 0 auto;
   border-radius: 5px;
-  border: 0.2rem solid var(--white);
-  background-color: var(--pink);
+  border: 0.2rem solid var(--pink);
+  background-color: var(--white);
 }
 
 dialog::backdrop {
@@ -160,14 +165,25 @@ dialog::backdrop {
   backdrop-filter: blur(5px);
 }
 
+.close-dialog-btn {
+  color: var(--pink);
+  font-weight: 700;
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  cursor: pointer;
+}
+
 .textarea {
   display: block;
-  width: 100%;
+  color: var(--pink);
+  width: 92%;
   overflow: hidden;
   resize: none;
   line-height: 20px;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   font-weight: 700;
+  cursor: text;
 }
 
 .textarea:focus-visible {
@@ -175,15 +191,91 @@ dialog::backdrop {
 }
 
 .textarea:empty::before {
-  content: "Type your task here";
+  content: 'Type your task here';
   color: #bbb;
   font-weight: 400;
 }
 
-input[type="date"] {
+.input-block {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  align-items: center;
+  row-gap: 0.5rem;
+}
+
+.radio-block {
+  display: flex;
+}
+
+label,
+input[type='date'],
+input[type='radio']::before {
+  font-size: 0.7rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+input[type='date'] {
   background-color: var(--light-grey);
   border: none;
   height: 1.5rem;
   padding: 0.7rem;
   border-radius: 5px;
+}
+
+input[type='radio'] {
+  appearance: none;
+  padding: 0.1rem 0.7rem;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 2px;
+  flex: 1 0 auto;
+  text-align: center;
+}
+
+input[type='radio']#low-priority {
+  border-color: green;
+}
+
+input[type='radio']#medium-priority {
+  border-color: gold;
+  margin: 0 0.4rem;
+}
+
+input[type='radio']#high-priority {
+  border-color: red;
+}
+input[type='radio']#low-priority:checked {
+  background-color: green;
+  color: var(--white);
+}
+
+input[type='radio']#medium-priority:checked {
+  background-color: gold;
+  color: var(--white);
+}
+
+input[type='radio']#high-priority:checked {
+  background-color: red;
+  color: var(--white);
+}
+
+input[type='radio']#low-priority::before {
+  border-color: green;
+  content: 'Low';
+}
+
+input[type='radio']#medium-priority::before {
+  border-color: green;
+  content: 'Medium';
+}
+
+input[type='radio']#high-priority::before {
+  border-color: green;
+  content: 'High';
+}
+
+.submit-btn {
+  height: 1.5rem;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
 }

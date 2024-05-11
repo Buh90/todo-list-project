@@ -1,7 +1,17 @@
-import "./style.css";
-import { showModal } from "./modal.js";
+import './style.css';
+import * as modal from './modal.js';
 // import html from "./index.html";
 
-const addTaskBtn = document.querySelector(".add-task");
+const showModalBtn = document.querySelector('.add-task');
+let taskList = [];
 
-addTaskBtn.addEventListener("click", () => showModal());
+showModalBtn.addEventListener('click', () => {
+  modal.create();
+  const closeModalBtn = document.querySelector('.close-dialog-btn');
+  const submitModalBtn = document.querySelector('.submit-btn');
+  closeModalBtn.addEventListener('click', () => modal.closeModal());
+  submitModalBtn.addEventListener('click', () => {
+    taskList.push(modal.saveData());
+    console.log(taskList);
+  });
+});
