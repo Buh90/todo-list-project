@@ -11,7 +11,10 @@ showModalBtn.addEventListener('click', () => {
   const submitModalBtn = document.querySelector('.submit-btn');
   closeModalBtn.addEventListener('click', () => modal.closeModal());
   submitModalBtn.addEventListener('click', () => {
-    taskList.push(modal.saveData());
+    const task = modal.saveData();
+    if (task) {
+      taskList.push(task);
+    }
     console.log(taskList);
   });
 });

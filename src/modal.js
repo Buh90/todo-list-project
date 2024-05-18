@@ -13,10 +13,10 @@ function create() {
               class="textarea"
               role="textbox"
               contenteditable
-            ></p>
+                          ></p>
             <div class="input-block">
               <label for="due-date">Due date:</label
-              ><input type="date" name="due-date" id="due-date" />
+              ><input type="date" name="due-date" id="due-date" required/>
               <label for="priority">Priority:</label>
               <div class="radio-block">
                 <input
@@ -24,6 +24,7 @@ function create() {
                   name="priority"
                   id="low-priority"
                   value="low"
+                  required
                 />
                 <input
                   type="radio"
@@ -39,7 +40,7 @@ function create() {
                 />
               </div>
             </div>
-            <button class="submit-btn" type="button">Add task</button>
+            <button class="submit-btn" type="submit">Add task</button>
           </form>`;
   mainSection.appendChild(dialog);
   dialog.showModal();
@@ -54,28 +55,15 @@ function saveData() {
   const taskName = document.querySelector('#task-name');
   const duedate = document.querySelector('#due-date');
   const priority = document.querySelector('[name="priority"]:checked');
+
   const taskData = {
-    taskName: taskName.textContent,
+    taskName: taskName.textContent || 'NO',
     duedate: duedate.value,
     priority: priority.value,
   };
   closeModal();
   return taskData;
 }
-
-// modal.dialogForm.addEventListener('submit', (e) => {
-//   const modal = document.querySelector('dialog');
-//   e.preventDefault();
-//   let newTask = {
-//     taskName: modal.taskName.textContent,
-//     duedate: modal.duedate.value,
-//     priority: document.querySelector('[name="priority"]:checked').value,
-//   };
-//   taskList.push(newTask);
-//   modal.dialog.close();
-//   resetModal();
-//   console.log(taskList);
-// });
 
 function reset() {
   if (document.body.contains(dialog)) {
