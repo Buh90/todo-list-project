@@ -1,13 +1,17 @@
-import './style.css';
-import * as modal from './modal.js';
+import "./style.css";
+import { createModal } from "./modal.js";
 // import html from "./index.html";
 
-const showModalBtn = document.querySelector('.add-task');
+const showModalBtn = document.querySelector(".add-task");
+const modal = document.querySelector("dialog");
+
 let taskList = [];
 
-showModalBtn.addEventListener('click', () => {
-  modal.create();
+showModalBtn.addEventListener("click", () => {
+  createModal();
 });
-document
-  .querySelector('dialog')
-  .addEventListener('close', () => console.log('CHIUSO'));
+
+modal.addEventListener("close", () => {
+  console.log(modal.childNodes.children);
+  console.dir(modal.childNodes.children);
+});
