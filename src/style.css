@@ -137,12 +137,33 @@ main {
 .add-task {
   font-weight: 700;
   padding: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .add-task:hover,
 .submit-btn:hover {
   background-color: var(--white);
   color: var(--pink);
+}
+
+/* -----------------
+TASK LIST
+-------------------*/
+.task-div {
+  width: 100%;
+  background-color: red;
+  display: flex;
+}
+
+.task-name {
+  flex: 1 1 80%;
+  background-color: aliceblue;
+}
+
+.task-duedate,
+.task-priority {
+  flex: 0 0 6rem;
+  background-color: aqua;
 }
 
 /* -----------------
