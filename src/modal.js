@@ -1,4 +1,4 @@
-import { format, compareAsc } from 'date-fns';
+import { compareAsc } from 'date-fns';
 
 const mainSection = document.querySelector('main');
 let task = {};
@@ -80,7 +80,7 @@ function createModal() {
 function createTask(el) {
   task = {
     name: el.taskNameInput.textContent,
-    duedate: format(el.duedateInput.value, 'dd-MMMM'),
+    duedate: el.duedateInput.value,
     priority: document.querySelector('[type="radio"]:checked').value,
   };
 }
