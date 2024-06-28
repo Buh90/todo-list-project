@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 :root {
   --pink: rgb(255, 65, 106);
@@ -13,7 +13,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   user-select: none;
 }
 
@@ -90,7 +90,7 @@ aside {
 .add-task,
 .submit-btn {
   border: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
@@ -191,27 +191,27 @@ TASK LIST
   background-color: #aaa;
 }
 
-.task-div input[type='checkbox'] {
+.task-div input[type="checkbox"] {
   flex: 0 0 1.1rem;
   appearance: none;
   aspect-ratio: 1;
   background-color: #fff;
-  border: solid 3px var(--pink);
+  border: solid 2px var(--pink);
   border-radius: 100%;
   margin: 0 0.5rem 0 0.8rem;
   overflow: hidden;
   display: grid;
   place-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #aaa;
   cursor: pointer;
   background-image: url(./assets/checkbox.svg);
   background-repeat: no-repeat;
   background-size: 0;
-  transition: 0.3s all;
 }
 
-.task-div input[type='checkbox']:checked {
+.task-div input[type="checkbox"]:checked {
+  transition: 0.3s transform;
   flex-basis: 1.3rem;
   background-color: transparent;
   background-size: 100%;
@@ -233,12 +233,17 @@ TASK LIST
   margin-left: 1rem;
 }
 
-.delete {
+.task-icon {
   height: 1.8rem;
-  fill: #888;
   margin: 0 0.5rem;
   cursor: pointer;
   transition: 0.2s;
+  fill: var(--pink);
+}
+
+.delete {
+  fill: #888;
+  margin-left: 0;
 }
 
 .delete:hover {
@@ -275,25 +280,29 @@ dialog::backdrop {
   cursor: pointer;
 }
 
-.textarea {
+.textarea,
+.note-title {
   display: block;
   color: var(--pink);
   width: 92%;
-  min-height: 3rem;
   overflow: hidden;
   resize: none;
   line-height: 20px;
-
   font-weight: 700;
-  cursor: text;
 }
 
-.textarea:focus-visible {
+.textarea {
+  cursor: text;
+  min-height: 3rem;
+}
+
+.textarea:focus-visible,
+.note-field:focus-visible {
   outline: none;
 }
 
 .textarea:empty::before {
-  content: 'Type your task here';
+  content: "Type your task here";
   color: #bbb;
   font-weight: 400;
 }
@@ -310,13 +319,13 @@ dialog::backdrop {
 }
 
 label,
-input[type='date'],
-input[type='radio']::before {
+input[type="date"],
+input[type="radio"]::before {
   font-size: 0.7rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
-input[type='date'] {
+input[type="date"] {
   background-color: var(--light-grey);
   border: none;
   height: 1.5rem;
@@ -324,7 +333,7 @@ input[type='date'] {
   border-radius: 5px;
 }
 
-input[type='radio'] {
+input[type="radio"] {
   appearance: none;
   padding: 0.1rem 0.7rem;
   border-radius: 3px;
@@ -334,46 +343,46 @@ input[type='radio'] {
   text-align: center;
 }
 
-input[type='radio']#low-priority {
+input[type="radio"]#low-priority {
   border-color: green;
 }
 
-input[type='radio']#medium-priority {
+input[type="radio"]#medium-priority {
   border-color: gold;
   margin: 0 0.4rem;
 }
 
-input[type='radio']#high-priority {
+input[type="radio"]#high-priority {
   border-color: red;
 }
-input[type='radio']#low-priority:checked {
+input[type="radio"]#low-priority:checked {
   background-color: green;
   color: var(--white);
 }
 
-input[type='radio']#medium-priority:checked {
+input[type="radio"]#medium-priority:checked {
   background-color: gold;
   color: var(--white);
 }
 
-input[type='radio']#high-priority:checked {
+input[type="radio"]#high-priority:checked {
   background-color: red;
   color: var(--white);
 }
 
-input[type='radio']#low-priority::before {
+input[type="radio"]#low-priority::before {
   border-color: green;
-  content: 'Low';
+  content: "Low";
 }
 
-input[type='radio']#medium-priority::before {
+input[type="radio"]#medium-priority::before {
   border-color: green;
-  content: 'Medium';
+  content: "Medium";
 }
 
-input[type='radio']#high-priority::before {
+input[type="radio"]#high-priority::before {
   border-color: green;
-  content: 'High';
+  content: "High";
 }
 
 .submit-btn {
@@ -402,4 +411,20 @@ input[type='radio']#high-priority::before {
 
 .grid-error {
   grid-column: 1/-1;
+}
+
+.note-title {
+  user-select: none;
+  margin-bottom: 1rem;
+}
+
+.note-field {
+  background-color: var(--light-grey);
+  padding: 0.5rem;
+}
+
+.note-field:empty::before {
+  content: "Type here your note";
+  color: #bbb;
+  font-weight: 400;
 }
