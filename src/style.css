@@ -1,9 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   --pink: rgb(255, 65, 106);
   --light-grey: rgb(240, 240, 240);
   --white: rgb(255, 255, 255);
+  --font: 'Poppins', sans-serif;
 }
 
 * {
@@ -13,7 +14,7 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font);
   user-select: none;
 }
 
@@ -51,6 +52,7 @@ aside {
   min-height: calc(100vh - 4.4rem);
   background-color: var(--light-grey);
   padding: 2rem;
+  position: relative;
 }
 
 .aside-title {
@@ -78,6 +80,11 @@ aside {
   height: 2rem;
   width: 0.4rem;
   background: var(--pink);
+  display: none;
+}
+
+.nav-selected:has(+ .nav-button.active) {
+  display: block;
 }
 
 .nav-button > img {
@@ -88,9 +95,10 @@ aside {
 
 .nav-button,
 .add-task,
-.submit-btn {
+.submit-btn,
+.add-project {
   border: none;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font);
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s;
@@ -102,7 +110,8 @@ aside {
   align-items: center;
 }
 
-.nav-button:hover {
+.nav-button:hover,
+.nav-button.active {
   transform: translateX(5px);
 }
 
@@ -125,7 +134,8 @@ main {
 }
 
 .submit-btn,
-.add-task {
+.add-task,
+.add-project {
   color: var(--white);
   background-color: var(--pink);
   width: 100%;
@@ -134,14 +144,22 @@ main {
   outline-offset: -2px;
 }
 
-.add-task {
+.add-task,
+.add-project {
   font-weight: 700;
   padding: 0.5rem;
   margin-bottom: 1rem;
 }
 
+.add-project {
+  position: absolute;
+  bottom: 1rem;
+  width: calc(100% - 4rem);
+}
+
 .add-task:hover,
-.submit-btn:hover {
+.submit-btn:hover,
+.add-project:hover {
   background-color: var(--white);
   color: var(--pink);
 }
@@ -191,7 +209,7 @@ TASK LIST
   background-color: #aaa;
 }
 
-.task-div input[type="checkbox"] {
+.task-div input[type='checkbox'] {
   flex: 0 0 1.1rem;
   appearance: none;
   aspect-ratio: 1;
@@ -202,7 +220,7 @@ TASK LIST
   overflow: hidden;
   display: grid;
   place-content: center;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font);
   color: #aaa;
   cursor: pointer;
   background-image: url(./assets/checkbox.svg);
@@ -210,7 +228,7 @@ TASK LIST
   background-size: 0;
 }
 
-.task-div input[type="checkbox"]:checked {
+.task-div input[type='checkbox']:checked {
   transition: 0.3s transform;
   flex-basis: 1.3rem;
   background-color: transparent;
@@ -281,7 +299,8 @@ dialog::backdrop {
 }
 
 .textarea,
-.note-title {
+.note-title,
+.project-title {
   display: block;
   color: var(--pink);
   width: 92%;
@@ -297,12 +316,13 @@ dialog::backdrop {
 }
 
 .textarea:focus-visible,
-.note-field:focus-visible {
+.note-field:focus-visible,
+.project-field:focus-visible {
   outline: none;
 }
 
 .textarea:empty::before {
-  content: "Type your task here";
+  content: 'Type your task here';
   color: #bbb;
   font-weight: 400;
 }
@@ -319,13 +339,13 @@ dialog::backdrop {
 }
 
 label,
-input[type="date"],
-input[type="radio"]::before {
+input[type='date'],
+input[type='radio']::before {
   font-size: 0.7rem;
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font);
 }
 
-input[type="date"] {
+input[type='date'] {
   background-color: var(--light-grey);
   border: none;
   height: 1.5rem;
@@ -333,7 +353,7 @@ input[type="date"] {
   border-radius: 5px;
 }
 
-input[type="radio"] {
+input[type='radio'] {
   appearance: none;
   padding: 0.1rem 0.7rem;
   border-radius: 3px;
@@ -343,46 +363,46 @@ input[type="radio"] {
   text-align: center;
 }
 
-input[type="radio"]#low-priority {
+input[type='radio']#low-priority {
   border-color: green;
 }
 
-input[type="radio"]#medium-priority {
+input[type='radio']#medium-priority {
   border-color: gold;
   margin: 0 0.4rem;
 }
 
-input[type="radio"]#high-priority {
+input[type='radio']#high-priority {
   border-color: red;
 }
-input[type="radio"]#low-priority:checked {
+input[type='radio']#low-priority:checked {
   background-color: green;
   color: var(--white);
 }
 
-input[type="radio"]#medium-priority:checked {
+input[type='radio']#medium-priority:checked {
   background-color: gold;
   color: var(--white);
 }
 
-input[type="radio"]#high-priority:checked {
+input[type='radio']#high-priority:checked {
   background-color: red;
   color: var(--white);
 }
 
-input[type="radio"]#low-priority::before {
+input[type='radio']#low-priority::before {
   border-color: green;
-  content: "Low";
+  content: 'Low';
 }
 
-input[type="radio"]#medium-priority::before {
+input[type='radio']#medium-priority::before {
   border-color: green;
-  content: "Medium";
+  content: 'Medium';
 }
 
-input[type="radio"]#high-priority::before {
+input[type='radio']#high-priority::before {
   border-color: green;
-  content: "High";
+  content: 'High';
 }
 
 .submit-btn {
@@ -413,18 +433,29 @@ input[type="radio"]#high-priority::before {
   grid-column: 1/-1;
 }
 
-.note-title {
+.note-title,
+.project-title {
   user-select: none;
   margin-bottom: 1rem;
 }
 
-.note-field {
+.note-field,
+.project-field {
   background-color: var(--light-grey);
   padding: 0.5rem;
 }
 
+.project-field {
+  border: none;
+  width: 100%;
+}
+
+.project-field::placeholder {
+  font-family: var(--font);
+}
+
 .note-field:empty::before {
-  content: "Type here your note";
+  content: 'Type here your note';
   color: #bbb;
   font-weight: 400;
 }

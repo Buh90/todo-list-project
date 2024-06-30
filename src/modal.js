@@ -1,7 +1,37 @@
-import { compareAsc } from "date-fns";
+import { compareAsc } from 'date-fns';
 
-const mainSection = document.querySelector("main");
-let task = {};
+const mainSection = document.querySelector('main');
+
+let taskList = [
+  {
+    name: 'Example 1',
+    duedate: new Date(),
+    priority: 'high',
+    note: undefined,
+    project: 'none',
+  },
+  {
+    name: 'Example 2',
+    duedate: new Date('2024, 07, 12'),
+    priority: 'medium',
+    note: undefined,
+    project: 'none',
+  },
+  {
+    name: 'Example 3',
+    duedate: new Date(),
+    priority: 'low',
+    note: undefined,
+    project: 'none',
+  },
+  {
+    name: 'Example 4',
+    duedate: new Date('2024, 07, 2'),
+    priority: 'medium',
+    note: undefined,
+    project: 'none',
+  },
+];
 
 const modalHTML = `<form method="dialog" novalidate>
   <p class="close-modal-btn">x</p>
@@ -40,54 +70,45 @@ const modalHTML = `<form method="dialog" novalidate>
                 </div>
               <span class="grid-error" aria-live="polite"></span>
             </div>
-            <button class="submit-btn" type="submit">Add task</button>
+            <button class="submit-btn task-btn" type="submit">Add task</button>
           </form>`;
 
 const addNoteHTML = `<p class="close-modal-btn">x</p>
-<p class="note-title">Add note</p>
+<p class="note-title">Notes</p>
             <p class="note-field"
               id="task-name" 
               class="note"
               role="textbox"
               contenteditable
                           ></p>
-`;
+                          <button class="submit-btn note-btn">OK</button>
+                          `;
 
-let modalBox = document.createElement("dialog");
+const addProjectHTML = `<p class="close-modal-btn">x</p>
+                          <p class="project-title">Add a project</p>
+                          <input class="project-field" type="text" maxlength="30" placeholder="Type here your project"/>
+                          <button class="submit-btn project-btn">OK</button>`;
+
+let modalBox = document.createElement('dialog');
 mainSection.appendChild(modalBox);
-
-function createNote() {
-  modalBox.innerHTML = addNoteHTML;
-  modalBox.showModal();
-
-  const closeModalBtn = document.querySelector(".close-modal-btn");
-  closeModalBtn.addEventListener("click", () => {
-    modalBox.close();
-  });
-}
 
 function createModal() {
   modalBox.innerHTML = modalHTML;
-  task = {};
   modalBox.showModal();
 
-  const closeModalBtn = document.querySelector(".close-modal-btn");
-  const addTaskButton = document.querySelector(".submit-btn");
-
+  const addTaskButton = document.querySelector('.task-btn');
   const inputElements = {
-    taskNameInput: document.querySelector("#task-name"),
-    duedateInput: document.querySelector("#due-date"),
+    taskNameInput: document.querySelector('#task-name'),
+    duedateInput: document.querySelector('#due-date'),
     priorityInput: document.querySelectorAll('[type="radio"]'),
-    taskNameError: document.querySelector("#task-name + span.error"),
-    priorityError: document.querySelector(".radio-block + span.grid-error"),
-    duedateError: document.querySelector("#due-date + span.grid-error"),
+    taskNameError: document.querySelector('#task-name + span.error'),
+    priorityError: document.querySelector('.radio-block + span.grid-error'),
+    duedateError: document.querySelector('#due-date + span.grid-error'),
   };
 
-  closeModalBtn.addEventListener("click", () => {
-    modalBox.close();
-  });
+  createCloseModalBtn();
 
-  addTaskButton.addEventListener("click", (e) => {
+  addTaskButton.addEventListener('click', (e) => {
     let check = verifyFormValidity(inputElements);
     if (check) {
       createTask(inputElements);
@@ -98,21 +119,56 @@ function createModal() {
 }
 
 function createTask(el) {
-  task = {
+  let newTask = {
     name: el.taskNameInput.textContent,
     duedate: el.duedateInput.value,
     priority: document.querySelector('[type="radio"]:checked').value,
   };
+  taskList.push(newTask);
+}
+
+function createNote(taskIndex) {
+  modalBox.innerHTML = addNoteHTML;
+
+  const addNoteBtn = document.querySelector('.note-btn');
+  const noteTextField = document.querySelector('.note-field');
+
+  if (taskList[taskIndex].note) {
+    noteTextField.textContent = taskList[taskIndex].note;
+  }
+
+  modalBox.showModal();
+  createCloseModalBtn();
+  document.activeElement.blur();
+
+  addNoteBtn.addEventListener('click', () => {
+    taskList[taskIndex].note = noteTextField.textContent;
+    modalBox.close();
+  });
+}
+
+function createProject() {
+  modalBox.innerHTML = addProjectHTML;
+  modalBox.showModal();
+  document.activeElement.blur();
+  createCloseModalBtn();
+}
+
+function createCloseModalBtn() {
+  const closeModalBtn = document.querySelector('.close-modal-btn');
+  closeModalBtn.addEventListener('click', () => {
+    modalBox.close();
+  });
 }
 
 function verifyFormValidity(el) {
   let valididyStatus = true;
 
   //Task input
-  el.taskNameInput.addEventListener("input", () => {
+  el.taskNameInput.addEventListener('input', () => {
     if (el.taskNameInput.textContent) {
-      el.taskNameError.textContent = "";
-      el.taskNameError.classList.remove("active");
+      el.taskNameError.textContent = '';
+      el.taskNameError.classList.remove('active');
     } else {
       showTaskError();
       valididyStatus = false;
@@ -125,19 +181,19 @@ function verifyFormValidity(el) {
   }
 
   function showTaskError() {
-    el.taskNameError.textContent = "Enter the name of your task";
-    el.taskNameError.className = "error active";
+    el.taskNameError.textContent = 'Enter the name of your task';
+    el.taskNameError.className = 'error active';
   }
 
   //Duedate input
 
-  el.duedateInput.addEventListener("change", () => {
+  el.duedateInput.addEventListener('change', () => {
     if (
       el.duedateInput.value &&
       compareAsc(el.duedateInput.value, new Date()) == 1
     ) {
-      el.duedateError.textContent = "";
-      el.duedateError.classList.remove("active");
+      el.duedateError.textContent = '';
+      el.duedateError.classList.remove('active');
     } else {
       showDuedateError();
       valididyStatus = false;
@@ -154,17 +210,17 @@ function verifyFormValidity(el) {
 
   function showDuedateError() {
     el.duedateInput.value
-      ? (el.duedateError.textContent = "You cannot choose a past date")
-      : (el.duedateError.textContent = "Select a duedate");
-    el.duedateError.className = "grid-error active";
+      ? (el.duedateError.textContent = 'You cannot choose a past date')
+      : (el.duedateError.textContent = 'Select a duedate');
+    el.duedateError.className = 'grid-error active';
   }
 
   //Priority input
   let priorityArray = Array.from(el.priorityInput);
   priorityArray.forEach((input) =>
-    input.addEventListener("change", () => {
-      el.priorityError.textContent = "";
-      el.priorityError.classList.remove("active");
+    input.addEventListener('change', () => {
+      el.priorityError.textContent = '';
+      el.priorityError.classList.remove('active');
     })
   );
 
@@ -173,19 +229,19 @@ function verifyFormValidity(el) {
   );
 
   if (isPriorityChecked.length !== 0) {
-    el.priorityError.textContent = "";
-    el.priorityError.classList.remove("active");
+    el.priorityError.textContent = '';
+    el.priorityError.classList.remove('active');
   } else {
     showPriorityError();
     valididyStatus = false;
   }
 
   function showPriorityError() {
-    el.priorityError.textContent = "Select the priority";
-    el.priorityError.className = "grid-error active";
+    el.priorityError.textContent = 'Select the priority';
+    el.priorityError.className = 'grid-error active';
   }
 
   return valididyStatus;
 }
 
-export { createModal, createNote, task };
+export { createModal, createNote, createProject, taskList };
