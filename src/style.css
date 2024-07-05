@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 :root {
   --pink: rgb(255, 65, 106);
   --light-grey: rgb(240, 240, 240);
   --white: rgb(255, 255, 255);
-  --font: 'Poppins', sans-serif;
+  --font: "Poppins", sans-serif;
 }
 
 * {
@@ -87,7 +87,8 @@ aside {
   display: block;
 }
 
-.nav-button > img {
+.nav-button > img,
+.project-svg {
   width: 1.8rem;
   height: 2.5rem;
   margin-right: 0.5rem;
@@ -110,8 +111,7 @@ aside {
   align-items: center;
 }
 
-.nav-button:hover,
-.nav-button.active {
+.nav-button:hover {
   transform: translateX(5px);
 }
 
@@ -209,7 +209,7 @@ TASK LIST
   background-color: #aaa;
 }
 
-.task-div input[type='checkbox'] {
+.task-div input[type="checkbox"] {
   flex: 0 0 1.1rem;
   appearance: none;
   aspect-ratio: 1;
@@ -228,7 +228,7 @@ TASK LIST
   background-size: 0;
 }
 
-.task-div input[type='checkbox']:checked {
+.task-div input[type="checkbox"]:checked {
   transition: 0.3s transform;
   flex-basis: 1.3rem;
   background-color: transparent;
@@ -322,7 +322,7 @@ dialog::backdrop {
 }
 
 .textarea:empty::before {
-  content: 'Type your task here';
+  content: "Type your task here";
   color: #bbb;
   font-weight: 400;
 }
@@ -339,13 +339,13 @@ dialog::backdrop {
 }
 
 label,
-input[type='date'],
-input[type='radio']::before {
+input[type="date"],
+input[type="radio"]::before {
   font-size: 0.7rem;
   font-family: var(--font);
 }
 
-input[type='date'] {
+input[type="date"] {
   background-color: var(--light-grey);
   border: none;
   height: 1.5rem;
@@ -353,7 +353,7 @@ input[type='date'] {
   border-radius: 5px;
 }
 
-input[type='radio'] {
+input[type="radio"] {
   appearance: none;
   padding: 0.1rem 0.7rem;
   border-radius: 3px;
@@ -363,46 +363,46 @@ input[type='radio'] {
   text-align: center;
 }
 
-input[type='radio']#low-priority {
+input[type="radio"]#low-priority {
   border-color: green;
 }
 
-input[type='radio']#medium-priority {
+input[type="radio"]#medium-priority {
   border-color: gold;
   margin: 0 0.4rem;
 }
 
-input[type='radio']#high-priority {
+input[type="radio"]#high-priority {
   border-color: red;
 }
-input[type='radio']#low-priority:checked {
+input[type="radio"]#low-priority:checked {
   background-color: green;
   color: var(--white);
 }
 
-input[type='radio']#medium-priority:checked {
+input[type="radio"]#medium-priority:checked {
   background-color: gold;
   color: var(--white);
 }
 
-input[type='radio']#high-priority:checked {
+input[type="radio"]#high-priority:checked {
   background-color: red;
   color: var(--white);
 }
 
-input[type='radio']#low-priority::before {
+input[type="radio"]#low-priority::before {
   border-color: green;
-  content: 'Low';
+  content: "Low";
 }
 
-input[type='radio']#medium-priority::before {
+input[type="radio"]#medium-priority::before {
   border-color: green;
-  content: 'Medium';
+  content: "Medium";
 }
 
-input[type='radio']#high-priority::before {
+input[type="radio"]#high-priority::before {
   border-color: green;
-  content: 'High';
+  content: "High";
 }
 
 .submit-btn {
@@ -455,7 +455,11 @@ input[type='radio']#high-priority::before {
 }
 
 .note-field:empty::before {
-  content: 'Type here your note';
+  content: "Type here your note";
   color: #bbb;
   font-weight: 400;
+}
+
+.aaa {
+  width: 1.8rem;
 }

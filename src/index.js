@@ -1,59 +1,45 @@
-import './style.css';
-import { createModal, createNote, createProject, taskList } from './modal.js';
-import { format, isSameDay, differenceInDays } from 'date-fns';
-import html from './index.html';
+import "./style.css";
+import { createModal, createNote, createProject, taskList } from "./modal.js";
+import { format, isSameDay, differenceInDays } from "date-fns";
+import html from "./index.html";
 
-const showModalBtn = document.querySelector('.add-task');
-const addProjectBtn = document.querySelector('.add-project');
-const modal = document.querySelector('dialog');
-const taskContainer = document.querySelector('#task-container');
-const asideButtons = document.querySelectorAll('.nav-button');
-const inboxAmount = document.querySelector('.inbox-amount');
-const todayAmount = document.querySelector('.today-amount');
-const weekAmount = document.querySelector('.week-amount');
+const showModalBtn = document.querySelector(".add-task");
+const addProjectBtn = document.querySelector(".add-project");
+const modal = document.querySelector("dialog");
+const taskContainer = document.querySelector("#task-container");
+const inboxAmount = document.querySelector(".inbox-amount");
+const todayAmount = document.querySelector(".today-amount");
+const weekAmount = document.querySelector(".week-amount");
 
 renderTaskList(taskList);
 renderAmount();
+updateAsideButtons();
 
-for (let i = 0; i < 3; i++) {
-  asideButtons[i].addEventListener('click', () => {
-    if (i === 0) {
-      renderTaskList(taskList);
-    } else if (i === 1) {
-      renderTaskList(createTodayArray());
-    } else if (i === 2) {
-      renderTaskList(createWeekArray());
-    }
-    asideButtons.forEach((button) => button.classList.remove('active'));
-    asideButtons[i].classList.add('active');
-    console.log(asideButtons);
-  });
-}
-
-showModalBtn.addEventListener('click', () => {
-  createModal();
+showModalBtn.addEventListener("click", () => {
+  createModal(projectName);
 });
 
-addProjectBtn.addEventListener('click', () => {
+addProjectBtn.addEventListener("click", () => {
   createProject();
+  updateAsideButtons();
 });
 
-modal.addEventListener('close', () => {
+modal.addEventListener("close", () => {
   renderTaskList(taskList);
   renderAmount();
 });
 
 function renderTaskList(taskArray) {
-  taskContainer.innerHTML = '';
+  taskContainer.innerHTML = "";
   for (let i = 0; i < taskArray.length; i++) {
-    let taskDiv = document.createElement('div');
-    taskDiv.classList.add('task-div');
-    taskDiv.setAttribute('task-index', i);
+    let taskDiv = document.createElement("div");
+    taskDiv.classList.add("task-div");
+    taskDiv.setAttribute("task-index", i);
     taskDiv.innerHTML = `
     <p class='task-priority ${taskArray[i].priority}'></p>
     <input class='task-checkbox${i}' type='checkbox'>
     <p class='task-name'>${sanitizeInput(taskArray[i].name)}</p>
-    <p class='task-duedate'>${format(taskArray[i].duedate, 'dd MMM')}</p>
+    <p class='task-duedate'>${format(taskArray[i].duedate, "dd MMM")}</p>
     <svg class="task-icon note-${i}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Add note</title><path d="M5 19V5H12V12H19V13C19.7 13 20.37 13.13 21 13.35V9L15 3H5C3.89 3 3 3.89 3 5V19C3 20.1 3.89 21 5 21H13.35C13.13 20.37 13 19.7 13 19H5M14 4.5L19.5 10H14V4.5M23 18V20H20V23H18V20H15V18H18V15H20V18H23Z" /></svg>
 <svg class="task-icon delete del-${i}"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
   <title>Delete</title>
@@ -62,22 +48,24 @@ function renderTaskList(taskArray) {
     taskContainer.appendChild(taskDiv);
     document
       .querySelector(`.task-checkbox${i}`)
-      .addEventListener('click', () => {
-        taskDiv.classList.toggle('done');
+      .addEventListener("click", () => {
+        taskDiv.classList.toggle("done");
       });
 
     createNoteButtons(i);
 
-    document.querySelector(`.delete.del-${i}`).addEventListener('click', () => {
+    document.querySelector(`.delete.del-${i}`).addEventListener("click", () => {
       taskList.splice(i, 1);
       renderTaskList(taskArray);
       renderAmount();
     });
   }
+
+  console.log(taskList);
 }
 
 function createNoteButtons(i) {
-  document.querySelector(`.note-${i}`).addEventListener('click', () => {
+  document.querySelector(`.note-${i}`).addEventListener("click", () => {
     createNote(i);
   });
 }
@@ -91,7 +79,7 @@ function renderAmount() {
 }
 
 function sanitizeInput(inputValue) {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.textContent = inputValue;
   return div.innerHTML;
 }
@@ -106,6 +94,39 @@ function createWeekArray() {
   );
 }
 
+function createProjectArray(project) {
+  return taskList.filter((task) => task.project == project);
+}
+
+function updateAsideButtons() {
+  let asideButtons = Array.from(document.querySelectorAll(".nav-button"));
+  const projectTextField = document.querySelector(".project-field");
+  for (let i = 0; i < asideButtons.length; i++) {
+    asideButtons[i].addEventListener("click", () => {
+      if (i === 0) {
+        renderTaskList(taskList);
+        showModalBtn.textContent = `Add task +`;
+      } else if (i === 1) {
+        renderTaskList(createTodayArray());
+        showModalBtn.textContent = `Add task +`;
+      } else if (i === 2) {
+        renderTaskList(createWeekArray());
+        showModalBtn.textContent = `Add task +`;
+      } else {
+        //const projectBtnIndex = projectsBtn.length - 1;
+        renderTaskList(createProjectArray(projectTextField.value));
+        console.dir(asideButtons[i]);
+        showModalBtn.textContent = `Add task in "${asideButtons[i].textContent}" +`;
+      }
+      asideButtons.forEach((button) => button.classList.remove("active"));
+      asideButtons[i].classList.add("active");
+      let projectName = document.querySelector(".active").textContent.trim();
+    });
+  }
+  console.log(asideButtons.length);
+}
+
+export { sanitizeInput, updateAsideButtons };
 /*
 Salvare nella memoria di internet
 Aggiungere il progetto
